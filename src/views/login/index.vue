@@ -9,7 +9,6 @@
           clearable
           label="手机号"
           placeholder="请输入手机号"
-          :error-message="mobileMessage"
         />
 
         <van-field
@@ -37,20 +36,12 @@ export default {
       user: {
         mobile: '18801185985',
         code: '123456'
-      },
-      mobileMessage: ''
+      }
     }
   },
 
   methods: {
     async handleLogin () {
-      if (this.user.mobile.trim().length) {
-        this.mobileMessage = ''
-      } else {
-        this.mobileMessage = '请输入手机号'
-        return
-      }
-
       try {
         const data = await login(this.user)
 

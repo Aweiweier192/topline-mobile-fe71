@@ -55,7 +55,10 @@
         v-bind:value="数据"
         v-on:input="数据 = $event"
      -->
-    <HomeChannel v-model="isChannelShow" />
+    <HomeChannel
+      v-model="isChannelShow"
+      :channels="channels"
+      :active-index="activeChannelIndex" />
     <!-- 频道管理组件 -->
   </div>
 </template>
@@ -74,7 +77,7 @@ export default {
     return {
       activeChannelIndex: 0,
       channels: [], // 存储频道列表
-      isChannelShow: false
+      isChannelShow: true
     }
   },
 

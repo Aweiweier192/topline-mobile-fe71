@@ -6,6 +6,9 @@
         activeChannelIndex 绑定当前激活的标签页，使用索引
        -->
       <van-tabs class="channel-tabs" v-model="activeChannelIndex">
+        <div slot="nav-right" class="wap-nav">
+          <van-icon name="wap-nav" />
+        </div>
         <van-tab
           v-for="channelItem in channels"
           :key="channelItem.id"
@@ -234,5 +237,10 @@ export default {
 
 .channel-tabs /deep/ .van-tabs__content {
   margin-top: 100px;
+}
+
+.channel-tabs /deep/ .wap-nav {
+  position: fixed;
+  right: 0;
 }
 </style>

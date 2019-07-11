@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store'
 
 /**
  * axios.create 用于创建一个 axios 实例，该实例和 axios 的功能是一模一样的
@@ -10,12 +11,20 @@ import axios from 'axios'
  *    http://b.com
  */
 const request = axios.create({
-  baseURL: 'http://toutiao.course.itcast.cn'
+  baseURL: 'http://ttapi.research.itcast.cn/' // 线上接口地址
+  // baseURL: 'http://toutiao.course.itcast.cn'
 })
 
 // Add a request interceptor
 request.interceptors.request.use(function (config) {
   // Do something before request is sent
+
+  // 如果已登录，则为请求接口统一添加用户 token
+  const { user } = store.state
+  if (user) {
+    config.headers.Authorization = `Bearer ${user.token}`
+  }
+
   return config
 }, function (error) {
   // Do something with request error

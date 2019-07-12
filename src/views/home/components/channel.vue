@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import { getAllChannels, deleteUserChannel } from '@/api/channel'
 import { mapState } from 'vuex'
 
 export default {
@@ -145,7 +145,7 @@ export default {
       this.$emit('input', false)
     },
 
-    deleteChannel (item, index) {
+    async deleteChannel (item, index) {
       this.userChannels.splice(index, 1)
 
       // TODO: 删除当前频道，下一个激活的频道没有数据的问题
@@ -155,6 +155,7 @@ export default {
 
       if (this.user) {
         // 登录：发请求删除
+        await deleteUserChannel(item.id)
         return
       }
 

@@ -104,7 +104,6 @@ export default {
      * 计算属性会监视内部依赖的实例中的成员，当数据发生改变，它会重新调用计算
      */
     recommendChannels () {
-      console.log('recommendChannels called')
       // 从用户频道列表中映射一个数组，数组中存储了所有的用户频道 id
       const duplicates = this.userChannels.map(item => item.id)
 

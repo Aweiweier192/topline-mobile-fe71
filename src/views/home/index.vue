@@ -41,7 +41,7 @@
           >
             <van-cell
               v-for="articleItem in channelItem.articles"
-              :key="articleItem.art_id"
+              :key="articleItem.art_id.toString()"
               :title="articleItem.title">
               <div slot="label">
                 <template v-if="articleItem.cover.type">

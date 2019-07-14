@@ -114,6 +114,7 @@
     <more-action
       v-model="isMoreActionShow"
       :current-article="currentArticle"
+      @dislike-success="handleDislikeSuccess"
     />
     <!-- /更多操作 -->
   </div>
@@ -316,6 +317,14 @@ export default {
 
       // 显示更多操作的弹框
       this.isMoreActionShow = true
+    },
+
+    handleDislikeSuccess () {
+      const articles = this.activeChannel.articles
+      const delIndex = articles.findIndex(item => item === this.currentArticle)
+      articles.splice(delIndex, 1)
+      this.isMoreActionShow = false
+      this.$toast('操作成功')
     }
   }
 }

@@ -59,6 +59,16 @@
                   &nbsp;
                   <span>{{ articleItem.comm_count }}评论</span>
                   &nbsp;
+                  <!--
+                    把后端返回的数据转换成另一种格式输出：
+                    1. 从数据的源头来转换，重用麻烦
+                    2. 使用一个方法，重用麻烦
+                    3. 使用过滤器
+                      局部过滤器，filters 选项，只能在当前组件使用
+                      全局过滤器，Vue.filter(...)，任何组件都可以使用
+                    什么情况下建议使用过滤器？一般都是一些简单的文本格式操作。
+                   -->
+                  <!-- <span>{{ relativeTime(articleItem.pubdate) }}</span> -->
                   <span>{{ articleItem.pubdate | relativeTime }}</span>
                 </p>
               </div>
@@ -118,6 +128,14 @@ export default {
       isChannelShow: false
     }
   },
+
+  // 局部过滤器只能在当前组件使用
+  // filters: {
+  //   过滤器名称 (参数) {
+  //     // 其它逻辑
+  //     return 结果
+  //   }
+  // },
 
   computed: {
     /**

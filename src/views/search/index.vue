@@ -26,6 +26,7 @@
 
 <script>
 import { getSuggestion } from '@/api/search'
+import { debounce } from 'lodash'
 
 export default {
   name: 'SearchIndex',
@@ -40,7 +41,7 @@ export default {
     /**
      * 监视输入数据的改变，当数据发生变化，发请求获取搜索建议，展示到列表中
      */
-    async searchText (text) {
+    searchText: debounce(async function (text) {
       // 去除首尾空格
       text = text.trim()
 
@@ -56,7 +57,7 @@ export default {
       } catch (err) {
         console.log(err)
       }
-    }
+    }, 500)
   }
 }
 </script>

@@ -8,6 +8,12 @@ import 'amfe-flexible'
 import './styles/index.less'
 import zhCN from 'vee-validate/dist/locale/zh_CN'
 import VeeValidate, { Validator } from 'vee-validate'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn' // 加载中文语言包
+import relativeTime from 'dayjs/plugin/relativeTime' // dayjs 的 相对时间插件
+dayjs.extend(relativeTime) // 把插件注册到 dayjs 中
+
+dayjs.locale('zh-cn') // 配置使用中文语言包
 
 Vue.use(VeeValidate, {
   // 配置改变的时候去触发校验，默认是 input

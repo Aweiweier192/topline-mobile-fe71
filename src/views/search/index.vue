@@ -13,9 +13,15 @@
       <van-cell
         v-for="item in suggestions"
         :key="item"
-        :title="item"
         icon="search"
-      />
+      >
+        <!-- {{}} 不能展示带有 html 标签的字符 -->
+        <!--
+          过滤器
+          过滤只能用在 {{}} 和 v-bind 中
+         -->
+        <div slot="title" v-html="highlight(item, searchText)"></div>
+      </van-cell>
     </van-cell-group>
     <!-- /联想建议 -->
 
@@ -58,6 +64,13 @@ export default {
         console.log(err)
       }
     }, 500)
+  },
+
+  methods: {
+    highlight (text, keyword) {
+      return text.toLowerCase().split(keyword)
+        .join(`<span style="color: red">${keyword}</span>`)
+    }
   }
 }
 </script>

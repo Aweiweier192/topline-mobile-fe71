@@ -7,6 +7,7 @@
         v-model="searchText"
         show-action
         @search="handleSearch(searchText)"
+        @cancel="$router.back()"
       />
     </form>
     <!-- /搜索框 -->
@@ -103,6 +104,10 @@ export default {
       const data = JSON.stringify(this.searchHistories)
       window.localStorage.setItem('serach-histories', data)
     }
+  },
+
+  deactivated () {
+    this.$destroy()
   },
 
   methods: {

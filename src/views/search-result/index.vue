@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { getSearch } from '@/api/search'
+
 export default {
   name: 'SearchResult',
   data () {
@@ -37,6 +39,15 @@ export default {
       loading: false,
       finished: false
     }
+  },
+
+  async created () {
+    const data = await getSearch({
+      q: this.$route.params.q,
+      page: 2,
+      perPage: 20
+    })
+    console.log(data)
   },
 
   methods: {

@@ -30,7 +30,7 @@
     <!-- /联想建议 -->
 
     <!-- 历史记录 -->
-    <van-cell-group v-else>
+    <van-cell-group v-if="searchHistories.length && !searchText.length">
       <van-cell title="历史记录">
         <van-icon
           v-show="!isDeleteShow"
@@ -40,16 +40,21 @@
           @click="isDeleteShow = true"
         />
         <div v-show="isDeleteShow">
-          <span style="margin-right: 10px;">全部删除</span>
+          <span style="margin-right: 10px;" @click="searchHistories = []">全部删除</span>
           <span @click="isDeleteShow = false">完成</span>
         </div>
       </van-cell>
-      <van-cell title="hello">
+      <van-cell
+        v-for="(item, index) in searchHistories"
+        :key="item"
+        :title="item"
+      >
         <van-icon
           v-show="isDeleteShow"
           slot="right-icon"
           name="close"
           style="line-height: inherit;"
+          @click="searchHistories.splice(index, 1)"
         />
       </van-cell>
     </van-cell-group>
@@ -65,9 +70,10 @@ export default {
   name: 'SearchIndex',
   data () {
     return {
-      searchText: '',
-      suggestions: [],
-      isDeleteShow: false
+      searchText: '', // 输入的搜索文本内容
+      suggestions: [], // 搜索联想建议数据
+      isDeleteShow: false, // 控制删除的显示状态
+      searchHistories: JSON.parse(window.localStorage.getItem('serach-histories')) || [] // 存储搜索历史记录
     }
   },
 
@@ -91,7 +97,12 @@ export default {
       } catch (err) {
         console.log(err)
       }
-    }, 500)
+    }, 500),
+
+    searchHistories () {
+      const data = JSON.stringify(this.searchHistories)
+      window.localStorage.setItem('serach-histories', data)
+    }
   },
 
   methods: {
@@ -104,6 +115,15 @@ export default {
       if (!queryText.length) {
         return
       }
+
+      // 记录搜索历史记录（放到顶部）
+      this.searchHistories.unshift(queryText)
+
+      // 数组去重
+      const data = new Set(this.searchHistories)
+
+      // 将去重的结果重新赋值到数组中
+      this.searchHistories = Array.from(data)
 
       // 跳转到搜索结果页面
       this.$router.push({

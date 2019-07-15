@@ -49,6 +49,7 @@
         v-for="(item, index) in searchHistories"
         :key="item"
         :title="item"
+        @click="handleSearch(item)"
       >
         <van-icon
           v-show="isDeleteShow"

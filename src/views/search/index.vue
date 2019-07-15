@@ -1,11 +1,14 @@
 <template>
   <div>
     <!-- 搜索框 -->
-    <van-search
-      placeholder="请输入搜索关键词"
-      v-model="searchText"
-      show-action
-    />
+    <form action="/">
+      <van-search
+        placeholder="请输入搜索关键词"
+        v-model="searchText"
+        show-action
+        @search="handleSearch(searchText)"
+      />
+    </form>
     <!-- /搜索框 -->
 
     <!-- 联想建议 -->
@@ -14,6 +17,7 @@
         v-for="item in suggestions"
         :key="item"
         icon="search"
+        @click="handleSearch(item)"
       >
         <!-- {{}} 不能展示带有 html 标签的字符 -->
         <!--
@@ -70,6 +74,26 @@ export default {
     highlight (text, keyword) {
       return text.toLowerCase().split(keyword)
         .join(`<span style="color: red">${keyword}</span>`)
+    },
+
+    handleSearch (queryText) {
+      if (!queryText.length) {
+        return
+      }
+
+      // 跳转到搜索结果页面
+      this.$router.push({
+        name: 'search-result',
+        params: {
+          q: queryText
+        }
+      })
+
+      // 或者
+      // this.$router.push('/serach-result/' + queryText)
+
+      // 或者
+      // this.$router.push(`/serach-result/${queryText}`)
     }
   }
 }

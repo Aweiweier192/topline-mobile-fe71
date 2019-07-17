@@ -77,9 +77,16 @@ export default {
         this.$store.commit('setUser', data)
 
         // 登录成功，先简单粗暴的跳转到首页，后面再处理跳转到来的页面
-        this.$router.push({
-          name: 'home'
-        })
+        // this.$router.push({
+        //   name: 'home'
+        // })
+
+        // 方式一：直接 back()
+        // this.$router.back()
+
+        // 方式二：使用查询字符串记录起来
+        const redirect = this.$route.query.redirect || '/'
+        this.$router.push(redirect)
       } catch (err) {
         console.log(err)
 

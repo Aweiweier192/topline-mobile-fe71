@@ -25,6 +25,10 @@
       <!-- 更多操作 -->
       <more-action :article="article" />
       <!-- /更多操作 -->
+
+      <!-- 评论列表 -->
+      <comment-list/>
+      <!-- /评论列表 -->
     </div>
   </div>
 </template>
@@ -33,12 +37,14 @@
 import AuthInfo from './components/auth-info'
 import MoreAction from './components/more-action'
 import { getArticleDetail } from '@/api/article'
+import CommentList from './components/comment-list'
 
 export default {
   name: 'ArticleIndex',
   components: {
     AuthInfo,
-    MoreAction
+    MoreAction,
+    CommentList
   },
 
   data () {

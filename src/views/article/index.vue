@@ -27,7 +27,7 @@
       <!-- /更多操作 -->
 
       <!-- 评论列表 -->
-      <comment-list/>
+      <comment-list :article="article"/>
       <!-- /评论列表 -->
     </div>
   </div>
@@ -50,18 +50,18 @@ export default {
   data () {
     return {
       article: {
-        art_id: 12345,
-        attitude: 0,
-        aut_id: 1,
-        aut_name: '森龙',
-        aut_photo: 'http://toutiao.meiduo.site/Fn6-mrb5zLTZIRG3yH3jG8HrURdU',
-        ch_id: 6,
-        content: '<p>xxxxxxxxxxxxxxxxxxxxxx</p>',
-        is_collected: false,
-        is_followed: true,
-        pubdate: '2019-07-16T18:16:38',
-        recomments: [],
-        title: '11111111xxxxxxxxxxx'
+        // art_id: 12345,
+        // attitude: 0,
+        // aut_id: 1,
+        // aut_name: '森龙',
+        // aut_photo: 'http://toutiao.meiduo.site/Fn6-mrb5zLTZIRG3yH3jG8HrURdU',
+        // ch_id: 6,
+        // content: '<p>xxxxxxxxxxxxxxxxxxxxxx</p>',
+        // is_collected: false,
+        // is_followed: true,
+        // pubdate: '2019-07-16T18:16:38',
+        // recomments: [],
+        // title: '11111111xxxxxxxxxxx'
       }
     }
   },

@@ -38,6 +38,10 @@ export default {
   methods: {
     async handleFollow () {
       try {
+        if (!this.$checkLogin()) {
+          return
+        }
+
         this.isFollowLoading = true
         // 是否已登录？
         // 如果未登录，提示“该操作需要登录，确认登录吗？”

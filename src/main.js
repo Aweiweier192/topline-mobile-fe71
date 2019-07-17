@@ -10,8 +10,16 @@ import zhCN from 'vee-validate/dist/locale/zh_CN'
 import VeeValidate, { Validator } from 'vee-validate'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn' // 加载中文语言包
-import relativeTime from 'dayjs/plugin/relativeTime' // dayjs 的 相对时间插件
-dayjs.extend(relativeTime) // 把插件注册到 dayjs 中
+import relativeTime from 'dayjs/plugin/relativeTime' // 把插件注册到 dayjs 中
+import checkLogin from './utils/check-login' // dayjs 的 相对时间插件
+dayjs.extend(relativeTime)
+
+// Vue.prototype.$checkLogin = checkLogin
+Vue.use(checkLogin)
+
+// 更 Vue 的方式推荐奖这种注册方式写到插件中，本质没有任何区别，只是更 Vue 的风格而已。
+// Vue.component('组件名字', 组件选项对象)
+// Vue.prototype.xxx = xxx
 
 dayjs.locale('zh-cn') // 配置使用中文语言包
 

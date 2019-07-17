@@ -23,7 +23,7 @@
       <!-- /文章内容 -->
 
       <!-- 更多操作 -->
-      <more-action/>
+      <more-action :article="article" />
       <!-- /更多操作 -->
     </div>
   </div>
@@ -45,7 +45,7 @@ export default {
     return {
       article: {
         art_id: 12345,
-        attitude: 0,
+        attitude: 1,
         aut_id: 1,
         aut_name: '森龙',
         aut_photo: 'http://toutiao.meiduo.site/Fn6-mrb5zLTZIRG3yH3jG8HrURdU',

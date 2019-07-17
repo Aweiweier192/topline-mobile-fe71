@@ -45,7 +45,7 @@ export default {
     return {
       article: {
         art_id: 12345,
-        attitude: 1,
+        attitude: 0,
         aut_id: 1,
         aut_name: '森龙',
         aut_photo: 'http://toutiao.meiduo.site/Fn6-mrb5zLTZIRG3yH3jG8HrURdU',
@@ -66,12 +66,19 @@ export default {
 
   methods: {
     async loadArticle () {
+      const toast = this.$toast.loading({
+        duration: 0, // 配置为 0 表示持续展示 loading
+        mask: false, // 是否展示遮罩
+        forbidClick: true, // 禁用背景点击
+        message: '加载中...'
+      })
       try {
         const data = await getArticleDetail(this.$route.params.articleId)
         this.article = data
       } catch (err) {
         this.$toast.fail('加载失败')
       }
+      toast.clear()
     }
   }
 }

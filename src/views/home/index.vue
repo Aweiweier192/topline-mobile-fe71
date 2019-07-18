@@ -72,7 +72,7 @@
                    -->
                   <!-- <span>{{ relativeTime(articleItem.pubdate) }}</span> -->
                   <span>{{ articleItem.pubdate | relativeTime }}</span>
-                  <van-icon class="close" name="close" @click="handleShowMoreAction(articleItem)" />
+                  <van-icon class="close" name="close" @click.stop="handleShowMoreAction(articleItem)" />
                 </p>
               </div>
             </van-cell>

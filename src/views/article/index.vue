@@ -35,7 +35,7 @@
       <!-- 回复列表 -->
 
       <!-- 发布文章评论 -->
-      <add-comment class="add-comment" :target="articleId"/>
+      <add-comment class="add-comment" :target="articleId" :article="article"/>
       <!-- /发布文章评论 -->
     </div>
   </div>

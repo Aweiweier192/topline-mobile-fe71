@@ -4,7 +4,11 @@
       <input type="text" v-model="content">
     </div>
     <div class="more-wrap">
-      <van-icon v-if="!articleId" name="star-o"></van-icon>
+      <van-icon
+        v-if="!articleId"
+        :name="article.is_collected ? 'star' : 'star-o'"
+        @click="handleCollect"
+      ></van-icon>
       <van-button
         size="small"
         :disabled="!content.length"
@@ -16,6 +20,7 @@
 
 <script>
 import { addComment } from '@/api/comment'
+import { collectArticle, unCollectArticle } from '@/api/article'
 
 export default {
   name: 'AddComment',
@@ -27,6 +32,10 @@ export default {
     articleId: {
       type: [Number, String],
       default: null
+    },
+    article: {
+      type: Object,
+      default: () => {}
     }
   },
   data () {
@@ -47,6 +56,24 @@ export default {
         this.content = ''
       } catch (err) {
         this.$toast.fail('操作失败')
+      }
+    },
+
+    async handleCollect () {
+      try {
+        const articleId = this.article.art_id
+        if (this.article.is_collected) {
+          // 取消收藏
+          await unCollectArticle(articleId)
+          this.article.is_collected = false
+        } else {
+          // 收藏
+          await collectArticle(articleId)
+          this.article.is_collected = true
+        }
+        this.$toast('收藏成功')
+      } catch (err) {
+        this.$toast.fail('收藏失败')
       }
     }
   }

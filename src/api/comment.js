@@ -27,7 +27,7 @@ export const getComments = ({
 /**
  * 添加评论|回复
  */
-export const addComments = ({
+export const addComment = ({
   target,
   content,
   articleId = null // 如果数据为 null，则 axios 不会发送该数据

@@ -35,12 +35,22 @@
       />
       <!-- /回复的评论列表 -->
     </van-popup>
+
+    <!-- 对回复添加评论 -->
+    <add-comment
+      class="add-comment"
+      v-if="isShow"
+      :target="comment.com_id.toString()"
+      :article-id="articleId"
+    />
+    <!-- /对回复添加评论 -->
   </div>
 </template>
 
 <script>
 import globalBus from '@/utils/global-bus'
 import CommentList from './comment-list'
+import AddComment from './add-comment'
 
 export default {
   name: 'ReplyList',
@@ -48,11 +58,16 @@ export default {
     value: {
       type: Boolean,
       default: false
+    },
+    articleId: {
+      type: [Number, String],
+      required: true
     }
   },
 
   components: {
-    CommentList
+    CommentList,
+    AddComment
   },
 
   data () {
@@ -74,4 +89,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.add-comment {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 9999;
+}
 </style>

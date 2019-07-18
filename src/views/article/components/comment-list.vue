@@ -33,12 +33,29 @@
 </template>
 
 <script>
-import { getArticleComments } from '@/api/comment'
+import { getComments } from '@/api/comment'
 import globalBus from '@/utils/global-bus'
 
 export default {
   name: 'CommentList',
   props: {
+    /**
+     * source 是文章id或是评论id
+     * 文章id用于获取文章的评论
+     * 评论id用于获取评论的回复
+     */
+    source: {
+      type: [Number, String],
+      required: true
+    },
+
+    /**
+     * 你是要加载文章的评论呢？还是要加载评论的回复
+     */
+    isArticle: {
+      type: Boolean,
+      default: true
+    }
   },
   data () {
     return {
@@ -49,22 +66,17 @@ export default {
     }
   },
 
-  computed: {
-    articleId () {
-      return this.$route.params.articleId
-    }
-  },
-
   created () {
   },
 
   methods: {
     async onLoad () {
       console.log('oLoad')
-      const data = await getArticleComments({
-        articleId: this.articleId,
+      const data = await getComments({
+        source: this.source,
         offset: this.offset,
-        limit: 10 // 默认为 10
+        limit: 10, // 默认为 10
+        isArticle: this.isArticle
       })
 
       // 如果没有数据，则意味着评论加载完毕了

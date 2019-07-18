@@ -27,7 +27,7 @@
       <!-- /更多操作 -->
 
       <!-- 评论列表 -->
-      <comment-list :article="article"/>
+      <comment-list :source="articleId"/>
       <!-- /评论列表 -->
 
       <!-- 回复列表 -->
@@ -69,6 +69,12 @@ export default {
         // recomments: [],
         // title: '11111111xxxxxxxxxxx'
       }
+    }
+  },
+
+  computed: {
+    articleId () {
+      return this.$route.params.articleId
     }
   },
 

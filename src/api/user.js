@@ -56,3 +56,23 @@ export const unFollowUser = userId => {
     url: `/app/v1_0/user/followings/${userId}`
   })
 }
+
+/**
+ * 获取当前登录用户的个人信息
+ */
+export const getCurrentUserInfo = () => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/user`
+  })
+}
+
+/**
+ * 获取当前登录用户的基本信息
+ */
+export const getCurrentUserProfile = () => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/user/profile`
+  })
+}

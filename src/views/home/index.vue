@@ -120,6 +120,8 @@
       @add-blacklist-success="handleDislikeSuccess"
     />
     <!-- /更多操作 -->
+
+    <app-tabbar/>
   </div>
 </template>
 
@@ -128,12 +130,14 @@ import { getUserChannels } from '@/api/channel'
 import { getArticles } from '@/api/article'
 import HomeChannel from './components/channel'
 import MoreAction from './components/more-action'
+import AppTabbar from '@/views/app-tabbar'
 
 export default {
   name: 'HomeIndex',
   components: {
     HomeChannel,
-    MoreAction
+    MoreAction,
+    AppTabbar
   },
   data () {
     return {

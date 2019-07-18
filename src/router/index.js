@@ -6,20 +6,14 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      name: 'home',
       path: '/',
-      component: () => import('@/views/tabbar-layout'),
-      children: [
-        {
-          name: 'home',
-          path: '',
-          component: () => import('@/views/home')
-        },
-        {
-          name: 'my',
-          path: '/my',
-          component: () => import('@/views/my')
-        }
-      ]
+      component: () => import('@/views/home')
+    },
+    {
+      name: 'my',
+      path: '/my',
+      component: () => import('@/views/my')
     },
     {
       name: 'login',
@@ -43,6 +37,11 @@ export default new Router({
       name: 'article',
       path: '/article/:articleId',
       component: () => import('@/views/article')
+    },
+    {
+      name: 'user-profile',
+      path: '/user-profile',
+      component: () => import('@/views/user-profile')
     },
     {
       name: 'test',

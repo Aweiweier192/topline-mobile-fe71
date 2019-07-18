@@ -29,6 +29,10 @@
       <!-- 评论列表 -->
       <comment-list :article="article"/>
       <!-- /评论列表 -->
+
+      <!-- 回复列表 -->
+      <reply-list />
+      <!-- 回复列表 -->
     </div>
   </div>
 </template>
@@ -38,13 +42,15 @@ import AuthInfo from './components/auth-info'
 import MoreAction from './components/more-action'
 import { getArticleDetail } from '@/api/article'
 import CommentList from './components/comment-list'
+import ReplyList from './components/reply-list'
 
 export default {
   name: 'ArticleIndex',
   components: {
     AuthInfo,
     MoreAction,
-    CommentList
+    CommentList,
+    ReplyList
   },
 
   data () {

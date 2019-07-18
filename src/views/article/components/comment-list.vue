@@ -8,7 +8,7 @@
     >
       <van-cell
         v-for="item in comments"
-        :key="item.com_id"
+        :key="item.com_id.toString()"
       >
         <div slot="icon">
           <img class="avatar" :src="item.aut_photo" alt="">
@@ -24,7 +24,7 @@
           <p>
             <span>{{ item.pubdate | relativeTime }}</span>
             ·
-            <span>回复 {{ item.reply_count }}</span>
+            <span @click="handleShowReply(item)">回复 {{ item.reply_count }}</span>
           </p>
         </div>
       </van-cell>
@@ -34,14 +34,11 @@
 
 <script>
 import { getArticleComments } from '@/api/comment'
+import globalBus from '@/utils/global-bus'
 
 export default {
   name: 'CommentList',
   props: {
-    article: {
-      type: Object,
-      default: () => {}
-    }
   },
   data () {
     return {
@@ -85,16 +82,14 @@ export default {
 
       // 提供下一页的请求参数
       this.offset = data.last_id
+    },
+
+    handleShowReply (item) {
+      globalBus.$emit('reply-show', item)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  margin-right: 10px;
-}
 </style>

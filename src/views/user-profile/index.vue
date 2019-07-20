@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { getCurrentUserProfile } from '@/api/user'
+import { getCurrentUserProfile, updateUserProfile } from '@/api/user'
 
 export default {
   name: 'UserProfile',
@@ -42,8 +42,12 @@ export default {
   },
 
   methods: {
-    handleSave () {
+    async handleSave () {
+      const data = await updateUserProfile({
+        name: 'itcast5'
+      })
 
+      console.log(data)
     },
 
     async loadUserProfile () {

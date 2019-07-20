@@ -10,7 +10,7 @@
     />
 
     <van-cell-group>
-      <van-cell is-link title="头像">
+      <van-cell is-link title="头像" @click="isUploadPhotoShow = true">
         <div slot="default">
           <img width="30" :src="user.photo" alt="">
         </div>
@@ -23,17 +23,24 @@
       <van-cell is-link title="性别" :value="user.gender === 0 ? '男' : '女'" />
       <van-cell is-link title="生日" :value="user.birthday" />
     </van-cell-group>
+
+    <upload-photo v-model="isUploadPhotoShow"/>
   </div>
 </template>
 
 <script>
 import { getCurrentUserProfile, updateUserProfile } from '@/api/user'
+import UploadPhoto from './components/upload-photo'
 
 export default {
   name: 'UserProfile',
+  components: {
+    UploadPhoto
+  },
   data () {
     return {
-      user: {}
+      user: {},
+      isUploadPhotoShow: false
     }
   },
 

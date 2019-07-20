@@ -24,7 +24,10 @@
       <van-cell is-link title="生日" :value="user.birthday" />
     </van-cell-group>
 
-    <upload-photo v-model="isUploadPhotoShow"/>
+    <upload-photo
+      v-model="isUploadPhotoShow"
+      @upload-success="user.photo = $event"
+    />
   </div>
 </template>
 

@@ -6,7 +6,7 @@
       :show-confirm-button="false"
     >
       <van-cell-group>
-        <van-cell title="从相册选择" @click="handleShowFileSelect" />
+        <van-cell title="从相册选择" @click="file.click()" />
         <input
           style="display: none;"
           ref="file"
@@ -22,6 +22,7 @@
 
 <script>
 import { ImagePreview } from 'vant'
+import { updateUserProfileImage } from '@/api/user'
 
 export default {
   name: 'UploadPhoto',
@@ -33,7 +34,9 @@ export default {
   },
 
   data () {
-    return {}
+    return {
+      previewImage: null
+    }
   },
 
   computed: {
@@ -43,19 +46,17 @@ export default {
   },
 
   methods: {
-    handleShowFileSelect () {
-      this.file.click()
-    },
-
     handleFileChange () {
       const reader = new FileReader()
       reader.readAsDataURL(this.file.files[0])
       reader.onload = () => {
-        ImagePreview({
+        this.previewImage = ImagePreview({
           images: [
             reader.result // base64 编码的图片文件
           ],
-          showIndex: false // 是否显示页码
+          showIndex: false, // 是否显示页码
+          onClose: this.handlePreviewImageClose,
+          asyncClose: true
         })
       }
 
@@ -66,6 +67,41 @@ export default {
       //   ],
       //   showIndex: false // 是否显示页码
       // })
+    },
+
+    handlePreviewImageClose () {
+      this.$dialog.confirm({
+        message: '是否设置该图片为头像'
+      }).then(() => {
+        // 关闭图片预览
+        this.previewImage.close()
+
+        // 关闭选择图片对话框
+        this.$emit('input', false)
+
+        // 请求上传
+        this.uploadPhoto()
+      }).catch(() => {
+      })
+    },
+
+    async uploadPhoto () {
+      try {
+        const toast = this.$toast.loading({
+          duration: 0, // 持续展示 toast
+          forbidClick: true, // 禁用背景点击
+          loadingType: 'spinner',
+          message: '头像上传中'
+        })
+        const data = await updateUserProfileImage('photo', this.file.files[0])
+        this.$toast.success('更新头像成功')
+        this.$emit('upload-success', data.photo)
+
+        // 清除 loading
+        toast.clear()
+      } catch (err) {
+        this.$toast.fail('更新头像失败')
+      }
     }
   }
 }

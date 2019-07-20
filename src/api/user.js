@@ -110,3 +110,24 @@ export const updateUserProfile = ({
     }
   })
 }
+
+/**
+ * 编辑用户照片资料（头像、身份证照片）
+ * name 是提交的数据名
+ * file 是文件对象
+ */
+export const updateUserProfileImage = (name, file) => {
+  const formData = new FormData()
+  formData.append(name, file)
+  return request({
+    method: 'PATCH',
+    url: `/app/v1_0/user/photo`,
+
+    // Content-Type multipart/form-data
+    // XHR 2.0 新增的那个 FormData 对象
+    data: formData
+
+    // Content-Type application/json 数据传递一个普通对象
+    // data: {}
+  })
+}

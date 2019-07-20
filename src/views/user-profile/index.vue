@@ -8,6 +8,21 @@
       @click-left="$router.back()"
       @click-right="handleSave"
     />
+
+    <van-cell-group>
+      <van-cell is-link title="头像">
+        <div slot="default">
+          <img width="30" :src="user.photo" alt="">
+        </div>
+      </van-cell>
+      <van-cell is-link title="昵称" :value="user.name" />
+      <van-cell is-link title="介绍" value="内容" />
+    </van-cell-group>
+
+    <van-cell-group>
+      <van-cell is-link title="性别" :value="user.gender === 0 ? '男' : '女'" />
+      <van-cell is-link title="生日" :value="user.birthday" />
+    </van-cell-group>
   </div>
 </template>
 

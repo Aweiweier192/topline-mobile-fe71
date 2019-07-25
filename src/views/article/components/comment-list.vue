@@ -8,7 +8,7 @@
     >
       <van-cell
         v-for="item in comments"
-        :key="item.com_id"
+        :key="item.com_id.toString()"
       >
         <div slot="icon">
           <img class="avatar" :src="item.aut_photo" alt="">
@@ -24,7 +24,7 @@
           <p>
             <span>{{ item.pubdate | relativeTime }}</span>
             ·
-            <span>回复 {{ item.reply_count }}</span>
+            <span @click="handleShowReply(item)">回复 {{ item.reply_count }}</span>
           </p>
         </div>
       </van-cell>
@@ -33,14 +33,28 @@
 </template>
 
 <script>
-import { getArticleComments } from '@/api/comment'
+import { getComments } from '@/api/comment'
+import globalBus from '@/utils/global-bus'
 
 export default {
   name: 'CommentList',
   props: {
-    article: {
-      type: Object,
-      default: () => {}
+    /**
+     * source 是文章id或是评论id
+     * 文章id用于获取文章的评论
+     * 评论id用于获取评论的回复
+     */
+    source: {
+      type: [Number, String],
+      required: true
+    },
+
+    /**
+     * 你是要加载文章的评论呢？还是要加载评论的回复
+     */
+    isArticle: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -52,22 +66,17 @@ export default {
     }
   },
 
-  computed: {
-    articleId () {
-      return this.$route.params.articleId
-    }
-  },
-
   created () {
   },
 
   methods: {
     async onLoad () {
       console.log('oLoad')
-      const data = await getArticleComments({
-        articleId: this.articleId,
+      const data = await getComments({
+        source: this.source,
         offset: this.offset,
-        limit: 10 // 默认为 10
+        limit: 10, // 默认为 10
+        isArticle: this.isArticle
       })
 
       // 如果没有数据，则意味着评论加载完毕了
@@ -85,16 +94,14 @@ export default {
 
       // 提供下一页的请求参数
       this.offset = data.last_id
+    },
+
+    handleShowReply (item) {
+      globalBus.$emit('reply-show', item)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-.avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 100%;
-  margin-right: 10px;
-}
 </style>

@@ -27,8 +27,16 @@
       <!-- /更多操作 -->
 
       <!-- 评论列表 -->
-      <comment-list :article="article"/>
+      <comment-list :source="articleId"/>
       <!-- /评论列表 -->
+
+      <!-- 回复列表 -->
+      <reply-list :article-id="articleId" />
+      <!-- 回复列表 -->
+
+      <!-- 发布文章评论 -->
+      <add-comment class="add-comment" :target="articleId" :article="article"/>
+      <!-- /发布文章评论 -->
     </div>
   </div>
 </template>
@@ -38,13 +46,17 @@ import AuthInfo from './components/auth-info'
 import MoreAction from './components/more-action'
 import { getArticleDetail } from '@/api/article'
 import CommentList from './components/comment-list'
+import ReplyList from './components/reply-list'
+import AddComment from './components/add-comment'
 
 export default {
   name: 'ArticleIndex',
   components: {
     AuthInfo,
     MoreAction,
-    CommentList
+    CommentList,
+    ReplyList,
+    AddComment
   },
 
   data () {
@@ -63,6 +75,12 @@ export default {
         // recomments: [],
         // title: '11111111xxxxxxxxxxx'
       }
+    }
+  },
+
+  computed: {
+    articleId () {
+      return this.$route.params.articleId
     }
   },
 
@@ -100,5 +118,11 @@ export default {
   .article-content {
     font-size: 26px;
   }
+}
+
+.add-comment {
+  position: fixed;
+  left: 0;
+  bottom: 0;
 }
 </style>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebSocket 基本示例</title>
+</head>
+
+<body>
+  <div>
+    <input type="text" id="message">
+    <button onclick="send()">发送</button>
+  </div>
+  <script>
+    var oMessage = document.querySelector('#message')
+
+    // 创建一个 WebSocket 连接
+    // 注意：该接口仅用于测试，你给它发什么消息，它就给你回什么消息
+    // WebSocket 在建立连接的时候使用的 HTTP 协议，之后的通信全部都走的是 WebSocket 通信协议
+    var ws = new WebSocket("wss://echo.websocket.org");
+
+    // 当连接成功的时候触发这个事件
+    ws.onopen = function (evt) {
+      console.log("Connection open ...");
+
+      // 连接成功就可以使用 send 方法发送消息了
+      ws.send("Hello WebSockets!");
+    };
+
+    // 当收到对方的消息的时候触发这个事件
+    ws.onmessage = function (evt) {
+      // 事件对象.data 就是收到对方发给我的数据
+      console.log("Received Message: " + evt.data);
+
+      // 关闭连接，关闭之后，就不能再发送和接收消息了，除非重新建立连接
+      // ws.close();
+    };
+
+    // 当连接关闭以后触发该事件
+    ws.onclose = function (evt) {
+      console.log("Connection closed.");
+    }
+
+    function send() {
+      ws.send(oMessage.value)
+      oMessage.value = ''
+    }
+  </script>
+</body>
+
+</html>
